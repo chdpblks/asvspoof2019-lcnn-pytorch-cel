@@ -1,0 +1,23 @@
+train:
+  _target_: src.transforms.compose.Compose
+  transforms:
+    - _target_: src.transforms.RandomTrimRepeat
+      target_length: 78400
+    - _target_: src.transforms.LFCC
+      sample_rate: 16000
+      n_lfcc: 20
+    - _target_: src.transforms.normalize.Normalize1D
+      mean: [0.5]
+      std: [0.5]
+
+inference:
+  _target_: src.transforms.compose.Compose
+  transforms:
+    - _target_: src.transforms.TrimRepeat
+      target_length: 78400
+    - _target_: src.transforms.LFCC
+      sample_rate: 16000
+      n_lfcc: 20
+    - _target_: src.transforms.normalize.Normalize1D
+      mean: [0.5]
+      std: [0.5]

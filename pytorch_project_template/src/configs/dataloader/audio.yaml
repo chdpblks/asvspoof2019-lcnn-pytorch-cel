@@ -1,0 +1,6 @@
+_target_: torch.utils.data.DataLoader
+batch_size: 16
+num_workers: 8
+pin_memory: False
+collate_fn:
+  _target_: src.datasets.collate_audio.collate_fn_audio

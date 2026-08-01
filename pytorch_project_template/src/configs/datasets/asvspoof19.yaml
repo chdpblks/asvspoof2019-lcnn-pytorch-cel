@@ -1,0 +1,17 @@
+train:
+  _target_: src.datasets.ASVSpoof19
+  name: "train"
+  data_dir: "/kaggle/input/datasets/awsaf49/asvpoof-2019-dataset/LA/LA"
+  instance_transforms: ${transforms.instance_transforms.train}
+
+val:
+  _target_: src.datasets.ASVSpoof19
+  name: "dev"
+  data_dir: "/kaggle/input/datasets/awsaf49/asvpoof-2019-dataset/LA/LA"
+  instance_transforms: ${transforms.instance_transforms.inference}
+
+test:
+  _target_: src.datasets.ASVSpoof19
+  name: "eval"
+  data_dir: "/kaggle/input/datasets/awsaf49/asvpoof-2019-dataset/LA/LA"
+  instance_transforms: ${transforms.instance_transforms.inference}

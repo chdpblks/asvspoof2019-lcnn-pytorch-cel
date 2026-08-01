@@ -1,0 +1,3 @@
+_target_: src.model.LightCNN_ASVspoof2019
+num_classes: 2
+dropout_prob: 0.1

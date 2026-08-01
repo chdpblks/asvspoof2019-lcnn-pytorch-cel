@@ -1,0 +1,41 @@
+defaults:
+  - model: light_cnn
+  - writer: cometml
+  - metrics: asvspoof
+  - datasets: asvspoof19
+  - dataloader: audio
+  - transforms: lfcc
+  - _self_
+# writer:
+#   run_id: "... (32)"
+optimizer:
+  _target_: torch.optim.Adam
+  lr: 0.001
+  betas: [0.9, 0.999]
+  eps: 1.0e-8
+lr_scheduler:
+  _target_: torch.optim.lr_scheduler.CosineAnnealingLR
+  T_max: 30
+  eta_min: 1e-6 
+loss_function:
+  _target_: src.loss.ASVSpoofLoss
+  class_weights: [1.0, 8.837]  # [spoof, bonafide]
+model:
+  _target_: src.model.LightCNN_ASVspoof2019
+  dropout_prob: 0.1
+  num_classes: 2
+trainer:
+  log_step: 50
+  n_epochs: 50
+  epoch_len: null
+  device_tensors: ["data_object", "labels"]
+  resume_from: null
+  device: auto
+  override: True
+  monitor: "min test_EER"
+  save_period: 2
+  early_stop: ${trainer.n_epochs}
+  save_dir: "saved"
+  seed: 42
+  skip_oom: true
+  max_grad_norm: 1.0
